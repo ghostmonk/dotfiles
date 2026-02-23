@@ -1,0 +1,7 @@
+# Compiled sketchybar binaries
+sketchybar/helpers/menus/bin/
+sketchybar/helpers/event_providers/cpu_load/bin/
+sketchybar/helpers/event_providers/network_load/bin/
+
+# macOS
+.DS_Store
