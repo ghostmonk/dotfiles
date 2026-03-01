@@ -41,6 +41,38 @@ link "$DOTFILES/sketchybar"  ~/.config/sketchybar
 link "$DOTFILES/wezterm"     ~/.config/wezterm
 link "$DOTFILES/aerospace.toml" ~/.aerospace.toml
 link "$DOTFILES/tmux.conf"   ~/.tmux.conf
+link "$DOTFILES/zshrc"       ~/.zshrc
+link "$DOTFILES/zprofile"    ~/.zprofile
+link "$DOTFILES/p10k.zsh"   ~/.p10k.zsh
+
+# --- Oh My Zsh ---
+echo "==> Setting up Oh My Zsh..."
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "  Installing Oh My Zsh..."
+  RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+# Powerlevel10k theme
+P10K_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+if [ ! -d "$P10K_DIR" ]; then
+  echo "  Installing Powerlevel10k..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_DIR"
+fi
+
+# zsh-autosuggestions
+ZSH_AS_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+if [ ! -d "$ZSH_AS_DIR" ]; then
+  echo "  Installing zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_AS_DIR"
+fi
+
+# zsh-syntax-highlighting
+ZSH_SH_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+if [ ! -d "$ZSH_SH_DIR" ]; then
+  echo "  Installing zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_SH_DIR"
+fi
 
 # --- pyenv + neovim python venv ---
 echo "==> Setting up pyenv and neovim python venv..."

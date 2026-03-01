@@ -5,3 +5,6 @@ sketchybar/helpers/event_providers/network_load/bin/
 
 # macOS
 .DS_Store
+
+# Local overrides (secrets, machine-specific config)
+*.local

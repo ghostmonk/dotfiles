@@ -1,4 +1,5 @@
 # Core tools
+brew "git"
 brew "neovim"
 brew "tmux"
 brew "lazygit"
@@ -20,6 +21,10 @@ brew "pyenv"
 cask "wezterm"
 tap "nikitabobko/tap"
 cask "aerospace"
+
+# Fonts
+cask "font-meslo-lg-nerd-font"
+cask "font-hack-nerd-font"
 
 # Sketchybar (requires tap)
 tap "FelixKratz/formulae"
