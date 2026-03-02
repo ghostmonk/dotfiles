@@ -18,7 +18,9 @@ if ! command -v brew &>/dev/null; then
 fi
 
 echo "==> Running brew bundle..."
-brew bundle --file="$DOTFILES/Brewfile"
+if ! brew bundle --file="$DOTFILES/Brewfile"; then
+  echo "  WARNING: brew bundle had errors (see above). Continuing with the rest of the install..."
+fi
 
 # --- Symlinks ---
 echo "==> Creating symlinks..."
@@ -44,6 +46,13 @@ link "$DOTFILES/tmux.conf"   ~/.tmux.conf
 link "$DOTFILES/zshrc"       ~/.zshrc
 link "$DOTFILES/zprofile"    ~/.zprofile
 link "$DOTFILES/p10k.zsh"   ~/.p10k.zsh
+
+# --- Notes ---
+echo "==> Copying notes to ~/Documents/notes..."
+
+mkdir -p ~/Documents/notes
+cp -n "$DOTFILES/notes/"* ~/Documents/notes/ 2>/dev/null || true
+echo "  Notes copied (existing files not overwritten)"
 
 # --- Oh My Zsh ---
 echo "==> Setting up Oh My Zsh..."
@@ -124,11 +133,24 @@ else
   echo "  WARNING: nvim not found, skipping plugin install"
 fi
 
+# --- SbarLua (sketchybar Lua module) ---
+echo "==> Installing SbarLua..."
+
+SBARLUA_DIR="$HOME/.local/share/sketchybar_lua"
+if [ ! -d "$SBARLUA_DIR" ]; then
+  git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
+  make -C /tmp/SbarLua install
+  rm -rf /tmp/SbarLua
+  echo "  SbarLua installed to $SBARLUA_DIR"
+else
+  echo "  SbarLua already installed"
+fi
+
 # --- Build sketchybar helpers ---
 echo "==> Building sketchybar helpers..."
 
 if [ -f "$DOTFILES/sketchybar/helpers/makefile" ]; then
-  make -C "$DOTFILES/sketchybar/helpers" 2>/dev/null || echo "  WARNING: sketchybar helpers build failed (may need Xcode CLT)"
+  make -C "$DOTFILES/sketchybar/helpers" || echo "  WARNING: sketchybar helpers build failed (may need Xcode CLT)"
 fi
 
 echo ""

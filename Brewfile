@@ -1,3 +1,7 @@
+# Taps
+tap "nikitabobko/tap"
+tap "FelixKratz/formulae"
+
 # Core tools
 brew "git"
 brew "neovim"
@@ -14,18 +18,17 @@ brew "figlet"
 brew "jp2a"
 
 # Language support
+brew "lua"
 brew "node"
 brew "pyenv"
 
+# Sketchybar
+brew "FelixKratz/formulae/sketchybar"
+
 # Casks
 cask "wezterm"
-tap "nikitabobko/tap"
-cask "aerospace"
+cask "nikitabobko/tap/aerospace"
 
 # Fonts
 cask "font-meslo-lg-nerd-font"
 cask "font-hack-nerd-font"
-
-# Sketchybar (requires tap)
-tap "FelixKratz/formulae"
-brew "sketchybar"
